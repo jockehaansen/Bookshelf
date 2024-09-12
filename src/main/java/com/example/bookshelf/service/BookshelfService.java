@@ -6,9 +6,9 @@ import com.example.bookshelf.model.Book;
 import java.util.List;
 
 public interface BookshelfService {
-    public List<BookDTO> getAllBooksAsBookDTO();
+    List<BookDTO> getAllBooksAsBookDTO();
 
-    public List<BookDTO> addNewBookToBookshelf(BookDTO bookDTO);
+    List<BookDTO> addNewBookToBookshelf(BookDTO bookDTO);
 
-    public BookDTO bookToBookDTO(Book book);
+    BookDTO bookToBookDTO(Book book);
 }

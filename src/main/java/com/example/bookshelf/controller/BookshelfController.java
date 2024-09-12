@@ -2,7 +2,6 @@ package com.example.bookshelf.controller;
 
 import com.example.bookshelf.dto.BookDTO;
 import com.example.bookshelf.service.BookshelfService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,8 +9,11 @@ import java.util.List;
 @RestController
 public class BookshelfController {
 
-    @Autowired
-    private BookshelfService bookshelfService;
+    private final BookshelfService bookshelfService;
+
+    public BookshelfController(BookshelfService bookshelfService){
+        this.bookshelfService = bookshelfService;
+    }
     @GetMapping("/bookshelf")
     public List<BookDTO> getBooksInBookshelf(){
         return bookshelfService.getAllBooksAsBookDTO();

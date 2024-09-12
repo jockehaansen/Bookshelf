@@ -6,18 +6,19 @@ import com.example.bookshelf.model.Book;
 import com.example.bookshelf.repositories.BookRepository;
 import com.example.bookshelf.service.BookshelfService;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class BookshelfServiceImpl implements BookshelfService {
 
-    @Autowired
-    private BookRepository bookRepository;
+    private final BookRepository bookRepository;
     private final ModelMapper modelMapper = MapperConfig.modelMapper();
+
+    public BookshelfServiceImpl(BookRepository bookRepository){
+        this.bookRepository = bookRepository;
+    }
 
     @Override
     public List<BookDTO> getAllBooksAsBookDTO() {
