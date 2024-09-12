@@ -1,9 +1,10 @@
 import React from 'react';
+import BookTable from "../components/BookTable.jsx";
 
-const BookshelfPage = () => {
+const BookshelfPage = ({ books }) => {
     return (
         <div>
-            <h1 className={"text-4xl"}>Your bookshelf</h1>
+            <BookTable books={ books }/>
         </div>
     );
 };
