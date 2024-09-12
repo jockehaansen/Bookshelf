@@ -1,8 +1,6 @@
 package com.example.bookshelf.model;
 
-import jakarta.persistence.Embedded;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,8 +12,13 @@ import lombok.NoArgsConstructor;
 public class Book {
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Embedded
     private VolumeInfo volumeInfo;
+
+    public Book(VolumeInfo volumeInfo){
+        this.volumeInfo = volumeInfo;
+    }
 }
