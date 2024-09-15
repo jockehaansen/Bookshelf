@@ -1,38 +1,40 @@
 import React, {useEffect, useState} from 'react';
 import BookTable from "../components/BookTable.jsx";
 import {useNavigate} from "react-router-dom";
+import {fetchUserBookshelfOnLoad, postNewBookFromBookshelf} from "../utility/bookactions.js";
+import AddBookFromBookshelfModal from "../components/AddBookFromBookshelfModal.jsx";
 
 const BookshelfPage = () => {
     const [data, setData] = useState([]);
     const navigate = useNavigate();
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch("http://localhost:8080/bookshelf", {
-                    method: "GET",
-                });
-                const jsonData = await response.json();
-                setData(jsonData);
-            } catch (error) {
-                console.error("Error fetching data", error);
-            }
-        };
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
-        fetchData();
+
+    useEffect(() => {
+        const loadData = async () => {
+            const books = await fetchUserBookshelfOnLoad();
+            setData(books);
+        }
+        loadData();
     }, []);
 
     const handleHomeClick = () =>{
         navigate("/");
     }
     const handleAddNewBookClick = () => {
-        //TODO open window to add a new book and then post
+        setIsModalOpen(true)
+    }
+    const handleBookSave = (newBook) => {
+        postNewBookFromBookshelf(newBook);
+        setData([...data, newBook])
+        setIsModalOpen(false)
     }
 
     const handleFindNewBooksClick = () => {
         navigate("/books")
     }
     return (
-        <div className={"flex flex-row w-screen"}>
+        <div className={"flex flex-row w-screen h-screen"}>
             <div className={"w-1/3 p-4"}>
                 <ul className={"menu bg-base-200 rounded-box w-56"}>
                     <li><a onClick={handleHomeClick}>Home</a></li>
@@ -45,7 +47,14 @@ const BookshelfPage = () => {
                 </div>
             </div>
             <div className="divider divider-horizontal divider-primary"></div>
+            <div>
+                <AddBookFromBookshelfModal
+                    onSave={handleBookSave}
+                    isOpen={isModalOpen}
+                />
+            </div>
             <div className={"w-2/3 p-4"}>
+
                 <BookTable books={data}/>
             </div>
         </div>
