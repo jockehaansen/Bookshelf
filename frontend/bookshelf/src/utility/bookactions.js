@@ -1,18 +1,17 @@
-export const postNewBookFromBookshelf = (newBook) => {
-    fetch("http://localhost:8080/bookshelf/add", {
-        method: "POST",
+export const postNewBookFromBookshelf = async (book) => {
+    const response = await fetch('http://localhost:8080/bookshelf/add', {
+        method: 'POST',
         headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
         },
-        body: JSON.stringify(newBook),
-    })
-        .then(response => response.json())
-        .then(data => {
-            console.log("Book added successfully:", data);
-        })
-        .catch(error => {
-            console.error("Error adding the book:", error);
-        });
+        body: JSON.stringify(book),
+    });
+
+    if (!response.ok) {
+        throw new Error('Failed to save the book');
+    }
+
+    return await response.json();
 };
 
 export const fetchUserBookshelfOnLoad = async () => {

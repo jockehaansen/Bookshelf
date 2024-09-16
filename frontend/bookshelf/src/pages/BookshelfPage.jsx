@@ -24,9 +24,9 @@ const BookshelfPage = () => {
     const handleAddNewBookClick = () => {
         setIsModalOpen(true)
     }
-    const handleBookSave = (newBook) => {
-        postNewBookFromBookshelf(newBook);
-        setData([...data, newBook])
+    const handleBookSave = async (newBook) => {
+        const data = await postNewBookFromBookshelf(newBook);
+        setData(data);
         setIsModalOpen(false)
     }
 
@@ -47,15 +47,15 @@ const BookshelfPage = () => {
                 </div>
             </div>
             <div className="divider divider-horizontal divider-primary"></div>
-            <div>
-                <AddBookFromBookshelfModal
-                    onSave={handleBookSave}
-                    isOpen={isModalOpen}
-                />
-            </div>
             <div className={"w-2/3 p-4"}>
-
                 <BookTable books={data}/>
+                <div>
+                    <AddBookFromBookshelfModal
+                        onSave={handleBookSave}
+                        isOpen={isModalOpen}
+                        onClose={() => setIsModalOpen(false)}
+                    />
+                </div>
             </div>
         </div>
     );

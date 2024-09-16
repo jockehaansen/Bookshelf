@@ -1,6 +1,7 @@
 package com.example.bookshelf.controller;
 
 import com.example.bookshelf.dto.BookDTO;
+import com.example.bookshelf.model.VolumeInfo;
 import com.example.bookshelf.service.BookshelfService;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,7 +22,7 @@ public class BookshelfController {
     }
 
     @PostMapping("/bookshelf/add")
-    public List<BookDTO> addNewBookToBookshelf(@RequestBody BookDTO bookDTO){
-        return bookshelfService.addNewBookToBookshelf(bookDTO);
+    public List<BookDTO> addNewBookToBookshelf(@RequestBody VolumeInfo volumeInfo){
+        return bookshelfService.addNewBookToBookshelf(volumeInfo);
     }
 }

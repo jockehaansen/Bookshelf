@@ -3,6 +3,7 @@ package com.example.bookshelf.service.impl;
 import com.example.bookshelf.configs.MapperConfig;
 import com.example.bookshelf.dto.BookDTO;
 import com.example.bookshelf.model.Book;
+import com.example.bookshelf.model.VolumeInfo;
 import com.example.bookshelf.repositories.BookRepository;
 import com.example.bookshelf.service.BookshelfService;
 import org.modelmapper.ModelMapper;
@@ -26,8 +27,10 @@ public class BookshelfServiceImpl implements BookshelfService {
     }
 
     @Override
-    public List<BookDTO> addNewBookToBookshelf(BookDTO bookDTO) {
-        Book book = bookDTOToBook(bookDTO);
+    public List<BookDTO> addNewBookToBookshelf(VolumeInfo volumeInfo) {
+        System.out.println(volumeInfo);
+        Book book = new Book();
+        book.setVolumeInfo(volumeInfo);
         bookRepository.save(book);
         return getAllBooksAsBookDTO();
     }
