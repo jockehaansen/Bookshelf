@@ -42,7 +42,7 @@ tasks.named('test') {
 }
 
 bootJar {
-    mainClass = 'com.example.BookshelfApplication' // Also add this
+    mainClass = 'com.example.bookshelf.BookshelfApplication'
 }
 
 
