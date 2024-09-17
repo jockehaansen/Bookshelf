@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import BookTable from "../components/BookTable.jsx";
 import {useNavigate} from "react-router-dom";
-import {fetchUserBookshelfOnLoad, postNewBookFromBookshelf} from "../utility/bookactions.js";
+import {fetchUserBookshelfOnLoad, postNewBookFromBookshelf, updateBookFromBookshelf} from "../utility/bookactions.js";
 import AddBookFromBookshelfModal from "../components/AddBookFromBookshelfModal.jsx";
 
 const BookshelfPage = () => {
@@ -30,6 +30,11 @@ const BookshelfPage = () => {
         setIsModalOpen(false)
     }
 
+    const handleUpdateBook = async (bookToUpdate) => {
+        const data = await updateBookFromBookshelf(bookToUpdate);
+        setData(data);
+    }
+
     const handleFindNewBooksClick = () => {
         navigate("/books")
     }
@@ -48,7 +53,7 @@ const BookshelfPage = () => {
             </div>
             <div className="divider divider-horizontal divider-primary"></div>
             <div className={"w-2/3 p-4"}>
-                <BookTable books={data}/>
+                <BookTable books={data} handleUpdateBook={handleUpdateBook}/>
                 <div>
                     <AddBookFromBookshelfModal
                         onSave={handleBookSave}

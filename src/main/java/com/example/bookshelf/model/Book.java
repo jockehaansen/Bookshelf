@@ -1,6 +1,7 @@
 package com.example.bookshelf.model;
 
 import jakarta.persistence.*;
+import jdk.jfr.BooleanFlag;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,7 +19,11 @@ public class Book {
     @Embedded
     private VolumeInfo volumeInfo;
 
-    public Book(VolumeInfo volumeInfo){
+    @BooleanFlag
+    private boolean markedAsRead;
+
+    public Book(VolumeInfo volumeInfo, boolean markedAsRead) {
         this.volumeInfo = volumeInfo;
+        this.markedAsRead = markedAsRead;
     }
 }

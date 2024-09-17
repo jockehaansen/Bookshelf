@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import BookCard from "./BookCard.jsx";
 
-const BookTable = ({ books }) => {
+const BookTable = ({ books, handleUpdateBook }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const booksPerPage = 12;
 
@@ -22,7 +22,7 @@ const BookTable = ({ books }) => {
             </div>
             <div className={"flex flex-wrap backdrop-blur-2xl"}>
                 {currentBooks.map((book, index) => (
-                    <BookCard key={book.id} book={book}/>
+                    <BookCard key={book.id} book={book} handleUpdateBook={handleUpdateBook}/>
                 ))}
             </div>
         </>

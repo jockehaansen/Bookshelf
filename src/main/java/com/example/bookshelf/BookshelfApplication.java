@@ -25,9 +25,9 @@ public class BookshelfApplication {
             User user = new User("Joakim", "password");
             userRepository.save(user);
             VolumeInfo volumeInfo = new VolumeInfo("Title", "Subtitle", List.of("Lasse L"), "2021-04-04", "Bra bok", 333);
-            Book book = new Book(volumeInfo);
-            Book book1 = new Book(volumeInfo);
-            Book book2 = new Book(volumeInfo);
+            Book book = new Book(volumeInfo, true);
+            Book book1 = new Book(volumeInfo, false);
+            Book book2 = new Book(volumeInfo, false);
             bookRepository.save(book);
             bookRepository.save(book1);
             bookRepository.save(book2);

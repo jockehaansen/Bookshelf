@@ -26,3 +26,17 @@ export const fetchUserBookshelfOnLoad = async () => {
         return [];
     }
 }
+
+export const updateBookFromBookshelf = async (bookToUpdate) => {
+        const response = await fetch("http://localhost:8080/bookshelf/update", {
+            method:"PUT",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(bookToUpdate)
+        });
+        if (!response.ok){
+            throw new Error('Failed to update the book')
+        }
+        return await response.json();
+};

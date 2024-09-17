@@ -9,7 +9,9 @@ import java.util.List;
 public interface BookshelfService {
     List<BookDTO> getAllBooksAsBookDTO();
 
-    List<BookDTO> addNewBookToBookshelf(VolumeInfo volumeInfo);
+    List<BookDTO> addNewBookToBookshelf(BookDTO bookDTO);
+
+    List<BookDTO> updateBookInBookshelf(BookDTO bookDTO) throws Exception;
 
     BookDTO bookToBookDTO(Book book);
 }

@@ -8,4 +8,5 @@ public class BookDTO {
 
     private String id;
     private VolumeInfo volumeInfo;
+    private boolean markedAsRead;
 }

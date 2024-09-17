@@ -22,7 +22,12 @@ public class BookshelfController {
     }
 
     @PostMapping("/bookshelf/add")
-    public List<BookDTO> addNewBookToBookshelf(@RequestBody VolumeInfo volumeInfo){
-        return bookshelfService.addNewBookToBookshelf(volumeInfo);
+    public List<BookDTO> addNewBookToBookshelf(@RequestBody BookDTO bookDTO){
+        return bookshelfService.addNewBookToBookshelf(bookDTO);
+    }
+
+    @PutMapping("/bookshelf/update")
+    public List<BookDTO> updateBookInBookshelf(@RequestBody BookDTO bookDTO) throws Exception {
+        return bookshelfService.updateBookInBookshelf(bookDTO);
     }
 }

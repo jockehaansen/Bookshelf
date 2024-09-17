@@ -7,15 +7,19 @@ import com.example.bookshelf.model.VolumeInfo;
 import com.example.bookshelf.repositories.BookRepository;
 import com.example.bookshelf.service.BookshelfService;
 import org.modelmapper.ModelMapper;
+import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @Service
 public class BookshelfServiceImpl implements BookshelfService {
 
     private final BookRepository bookRepository;
     private final ModelMapper modelMapper = MapperConfig.modelMapper();
+    Logger logger = Logger.getLogger(BookshelfServiceImpl.class.getName());
 
     public BookshelfServiceImpl(BookRepository bookRepository){
         this.bookRepository = bookRepository;
@@ -27,10 +31,19 @@ public class BookshelfServiceImpl implements BookshelfService {
     }
 
     @Override
-    public List<BookDTO> addNewBookToBookshelf(VolumeInfo volumeInfo) {
-        System.out.println(volumeInfo);
+    public List<BookDTO> addNewBookToBookshelf(BookDTO bookDTO) {
         Book book = new Book();
-        book.setVolumeInfo(volumeInfo);
+        modelMapper.map(bookDTO, book);
+        bookRepository.save(book);
+        logger.log(Level.INFO, "Book added to the bookshelf {0}", book);
+        return getAllBooksAsBookDTO();
+    }
+
+    @Override
+    public List<BookDTO> updateBookInBookshelf(BookDTO bookDTO) throws Exception {
+        Book book = bookRepository.findById(bookDTO.getId()).orElseThrow(() -> new Exception("Book not found"));
+        book.setVolumeInfo(bookDTO.getVolumeInfo());
+        book.setMarkedAsRead(bookDTO.isMarkedAsRead());
         bookRepository.save(book);
         return getAllBooksAsBookDTO();
     }
