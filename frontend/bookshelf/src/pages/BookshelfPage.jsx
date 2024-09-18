@@ -1,7 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import BookTable from "../components/BookTable.jsx";
 import {useNavigate} from "react-router-dom";
-import {fetchUserBookshelfOnLoad, postNewBookFromBookshelf, updateBookFromBookshelf} from "../utility/bookactions.js";
+import {
+    deleteBookFromBookshelf,
+    fetchUserBookshelfOnLoad,
+    postNewBookFromBookshelf,
+    updateBookFromBookshelf
+} from "../utility/bookactions.js";
 import AddBookFromBookshelfModal from "../components/AddBookFromBookshelfModal.jsx";
 
 const BookshelfPage = () => {
@@ -35,6 +40,11 @@ const BookshelfPage = () => {
         setData(data);
     }
 
+    const handleDeleteBook = async (bookToDelete) => {
+        const data = await deleteBookFromBookshelf(bookToDelete);
+        setData(data);
+    }
+
     const handleFindNewBooksClick = () => {
         navigate("/books")
     }
@@ -42,9 +52,9 @@ const BookshelfPage = () => {
         <div className={"flex flex-row w-screen h-screen"}>
             <div className={"w-1/3 p-4"}>
                 <ul className={"menu bg-base-200 rounded-box w-56"}>
-                    <li><a onClick={handleHomeClick}>Home</a></li>
-                    <li><a onClick={handleAddNewBookClick}>Add New Book</a></li>
-                    <li><a onClick={handleFindNewBooksClick}>Find New Books</a></li>
+                    <li><button onClick={handleHomeClick}>Home</button></li>
+                    <li><button onClick={handleAddNewBookClick}>Add New Book</button></li>
+                    <li><button onClick={handleFindNewBooksClick}>Find New Books</button></li>
                 </ul>
                 <div className={"mt-4"}>
                     <p>pages read</p>
@@ -53,7 +63,7 @@ const BookshelfPage = () => {
             </div>
             <div className="divider divider-horizontal divider-primary"></div>
             <div className={"w-2/3 p-4"}>
-                <BookTable books={data} handleUpdateBook={handleUpdateBook}/>
+                <BookTable books={data} handleUpdateBook={handleUpdateBook} handleDeleteBook={handleDeleteBook}/>
                 <div>
                     <AddBookFromBookshelfModal
                         onSave={handleBookSave}

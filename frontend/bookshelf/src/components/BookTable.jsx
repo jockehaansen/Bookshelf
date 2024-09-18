@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 import BookCard from "./BookCard.jsx";
+import PropTypes from "prop-types";
 
-const BookTable = ({ books, handleUpdateBook }) => {
+const BookTable = ({ books, handleUpdateBook, handleDeleteBook }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const booksPerPage = 12;
 
@@ -13,20 +14,36 @@ const BookTable = ({ books, handleUpdateBook }) => {
     return (
         <>
             <div className="join grid grid-cols-2 max-w-md">
-                <button className="join-item btn btn-outline" onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1}>
+                <button className="join-item btn btn-outline"
+                        onClick={() => paginate(currentPage - 1)}
+                        disabled={currentPage === 1}>
                     Previous page
                 </button>
-                <button className="join-item btn btn-outline" onClick={() => paginate(currentPage + 1)} disabled={currentPage === totalPages}>
+                <button className="join-item btn btn-outline"
+                        onClick={() => paginate(currentPage + 1)}
+                        disabled={currentPage === totalPages}>
                     Next
                 </button>
             </div>
             <div className={"flex flex-wrap backdrop-blur-2xl"}>
-                {currentBooks.map((book, index) => (
-                    <BookCard key={book.id} book={book} handleUpdateBook={handleUpdateBook}/>
+                {currentBooks.map((book) => (
+                    <BookCard
+                        key={book.id}
+                        book={book}
+                        handleUpdateBook={handleUpdateBook}
+                        handleDeleteBook={handleDeleteBook}/>
                 ))}
             </div>
         </>
     );
 };
+
+BookTable.propTypes = {
+    books: {
+        book: PropTypes.object
+    },
+    handleUpdateBook: PropTypes.func.isRequired,
+    handleDeleteBook: PropTypes.func.isRequired
+}
 
 export default BookTable;

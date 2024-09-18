@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-const BookCard = ({ book, handleUpdateBook }) => {
+const BookCard = ({ book, handleUpdateBook, handleDeleteBook }) => {
 
     const handleMarkAsRead = () => {
             const updatedBookData = {
@@ -9,6 +9,8 @@ const BookCard = ({ book, handleUpdateBook }) => {
             };
             handleUpdateBook(updatedBookData);
         };
+
+
     return (
         <div className="card card-side bg-base-400 shadow-xl w-64 h-64">
             <figure>
@@ -23,7 +25,7 @@ const BookCard = ({ book, handleUpdateBook }) => {
                 <p className={"text-sm"}>{book.volumeInfo.pageCount}</p>
                 <div className="card-actions justify-end">
                     <button className="btn btn-primary" onClick={handleMarkAsRead}>{book.markedAsRead ? "Unmark as read" : "Mark as read"}</button>
-                    <button className={"btn btn-circle text-sm"}>X</button>
+                    <button className={"btn btn-circle text-sm"} onClick={() => handleDeleteBook(book)}>X</button>
                 </div>
             </div>
         </div>
@@ -39,11 +41,12 @@ BookCard.propTypes = {
             pageCount: PropTypes.number,
         }),
         markedAsRead: PropTypes.bool
-    }).isRequired,
-    handleUpdateBook: PropTypes.func.isRequired
+    }),
+    handleUpdateBook: PropTypes.func.isRequired,
+    handleDeleteBook: PropTypes.func.isRequired
 }
 
-BookCard.deafaultProps = {
+BookCard.defaultProps = {
     book: {
         volumeInfo: {
             title: "No Title",
@@ -52,7 +55,6 @@ BookCard.deafaultProps = {
             pageCount: 0,
         },
         markedAsRead : false
-    },
-    handleUpdateBook: () => {}
+    }
 }
 export default BookCard;

@@ -1,7 +1,6 @@
 package com.example.bookshelf.controller;
 
 import com.example.bookshelf.dto.BookDTO;
-import com.example.bookshelf.model.VolumeInfo;
 import com.example.bookshelf.service.BookshelfService;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,5 +28,10 @@ public class BookshelfController {
     @PutMapping("/bookshelf/update")
     public List<BookDTO> updateBookInBookshelf(@RequestBody BookDTO bookDTO) throws Exception {
         return bookshelfService.updateBookInBookshelf(bookDTO);
+    }
+
+    @DeleteMapping("bookshelf/delete")
+    public List<BookDTO> deleteBookFromBookshelf(@RequestBody BookDTO bookDTO) throws Exception {
+        return bookshelfService.deleteBookFromBookshelf(bookDTO);
     }
 }

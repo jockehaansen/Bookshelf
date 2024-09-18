@@ -5,7 +5,6 @@ import lombok.Data;
 
 @Data
 public class BookDTO {
-
     private String id;
     private VolumeInfo volumeInfo;
     private boolean markedAsRead;

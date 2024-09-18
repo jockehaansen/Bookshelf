@@ -40,3 +40,17 @@ export const updateBookFromBookshelf = async (bookToUpdate) => {
         }
         return await response.json();
 };
+
+export const deleteBookFromBookshelf = async (bookToDelete) => {
+    const response = await fetch("http://localhost:8080/bookshelf/delete", {
+        method: "DELETE",
+        headers: {
+            'Content-Type': 'Application/json'
+        },
+        body: JSON.stringify(bookToDelete)
+    });
+    if (!response.ok){
+        throw new Error('Failed to delete book')
+    }
+    return await response.json();
+}

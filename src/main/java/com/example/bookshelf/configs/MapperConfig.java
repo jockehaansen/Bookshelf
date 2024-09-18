@@ -9,6 +9,8 @@ import java.util.List;
 
 public class MapperConfig {
 
+    private MapperConfig() {}
+
     public static ModelMapper modelMapper() {
         ModelMapper modelMapper = new ModelMapper();
 

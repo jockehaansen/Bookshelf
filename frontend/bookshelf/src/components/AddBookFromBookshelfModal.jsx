@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import PropTypes from "prop-types";
 
 const AddBookFromBookshelfModal = ({ onSave, isOpen, onClose }) => {
 
@@ -84,5 +85,11 @@ const AddBookFromBookshelfModal = ({ onSave, isOpen, onClose }) => {
         </dialog>
     );
 };
+
+AddBookFromBookshelfModal.propTypes = {
+    onSave: PropTypes.func.isRequired,
+    isOpen: PropTypes.bool.isRequired,
+    onClose: PropTypes.func.isRequired
+}
 
 export default AddBookFromBookshelfModal;

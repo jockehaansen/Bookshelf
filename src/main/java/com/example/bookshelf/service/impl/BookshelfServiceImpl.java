@@ -3,11 +3,9 @@ package com.example.bookshelf.service.impl;
 import com.example.bookshelf.configs.MapperConfig;
 import com.example.bookshelf.dto.BookDTO;
 import com.example.bookshelf.model.Book;
-import com.example.bookshelf.model.VolumeInfo;
 import com.example.bookshelf.repositories.BookRepository;
 import com.example.bookshelf.service.BookshelfService;
 import org.modelmapper.ModelMapper;
-import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -49,13 +47,15 @@ public class BookshelfServiceImpl implements BookshelfService {
     }
 
     @Override
+    public List<BookDTO> deleteBookFromBookshelf(BookDTO bookDTO) throws Exception {
+        Book book = bookRepository.findById(bookDTO.getId()).orElseThrow(() -> new Exception("Book not found"));
+        bookRepository.delete(book);
+        return getAllBooksAsBookDTO();
+    }
+
+    @Override
     public BookDTO bookToBookDTO(Book book) {
         return modelMapper.map(book, BookDTO.class);
     }
-
-    public Book bookDTOToBook(BookDTO bookDTO){
-        return modelMapper.map(bookDTO, Book.class);
-    }
-
 
 }
