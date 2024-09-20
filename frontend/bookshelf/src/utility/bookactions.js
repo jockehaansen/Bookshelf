@@ -27,6 +27,18 @@ export const fetchUserBookshelfOnLoad = async () => {
     }
 }
 
+export const fetchGoogleBooksBySearch = async (input) => {
+    try {
+        const response = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${input}`, {
+            method: 'GET',
+        });
+        return await response.json();
+    } catch (error) {
+        console.error("Error fetching data", error)
+        return [];
+    }
+}
+
 export const updateBookFromBookshelf = async (bookToUpdate) => {
         const response = await fetch("http://localhost:8080/bookshelf/update", {
             method:"PUT",

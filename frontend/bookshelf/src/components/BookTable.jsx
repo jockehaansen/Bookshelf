@@ -42,8 +42,8 @@ BookTable.propTypes = {
     books: {
         book: PropTypes.object
     },
-    handleUpdateBook: PropTypes.func.isRequired,
-    handleDeleteBook: PropTypes.func.isRequired
+    handleUpdateBook: PropTypes.func,
+    handleDeleteBook: PropTypes.func
 }
 
 export default BookTable;
