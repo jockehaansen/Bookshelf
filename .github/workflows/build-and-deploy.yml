@@ -3,10 +3,10 @@ name: Build and Deploy to Render
 on:
   push:
     branches:
-      - master  # Trigger on push to the main branch
+      - master
   pull_request:
     branches:
-      - master  # Trigger on pull requests to the main branch
+      - master
 
 jobs:
   build:
