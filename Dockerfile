@@ -6,7 +6,6 @@ COPY frontend/bookshelf/package-lock.json ./
 RUN npm install
 COPY frontend/bookshelf ./
 RUN npm run build
-RUN ls -la /app/frontend/bookshelf
 
 #Backend
 FROM openjdk:17-jdk-alpine AS backend-build
