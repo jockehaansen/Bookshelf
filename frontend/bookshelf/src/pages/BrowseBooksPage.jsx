@@ -9,7 +9,6 @@ const BrowseBooksPage = () => {
 
     useEffect(() => {
         console.log("Inside useEffect")
-        return () => {
             const loadData = async () => {
                 const books = await fetchGoogleBooksBySearch(search);
                 console.log("Fetching data for", search)
@@ -17,7 +16,6 @@ const BrowseBooksPage = () => {
                 console.log(books.items)
             }
             loadData();
-        };
     }, [search]);
 
     return (
