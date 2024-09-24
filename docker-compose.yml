@@ -4,7 +4,7 @@ services:
   app:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile-backend
     image: bookshelf:latest
     environment:
       SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}

@@ -18,12 +18,22 @@ jobs:
         uses: actions/checkout@v3
 
       - uses: mr-smithers-excellent/docker-build-push@v6
-        name: Build & push Docker image
+        name: Build backend image
         with:
-          image: jockehansen/bookshelf
+          image: jockehansen/bookshelf-backend
           tags: v1, latest
           registry: docker.io
-          dockerfile: Dockerfile
+          dockerfile: Dockerfile-backend
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - uses: mr-smithers-excellent/docker-build-push@v6
+        name: Build frontend image
+        with:
+          image: jockehansen/bookshelf-frontend
+          tags: v1, latest
+          registry: docker.io
+          dockerfile: Dockerfile-frontend
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 

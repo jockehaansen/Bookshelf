@@ -1,0 +1,8 @@
+#Frontend build
+FROM node:18 AS frontend-build
+WORKDIR /app/frontend/bookshelf
+COPY frontend/bookshelf/package.json ./
+COPY frontend/bookshelf/package-lock.json ./
+RUN npm install
+COPY frontend/bookshelf ./
+RUN npm run build
