@@ -12,6 +12,7 @@ const BrowseBooksPage = () => {
             const loadData = async () => {
                 const books = await fetchGoogleBooksBySearch(search);
                 setData(books.items);
+                console.log(books.items)
             }
             loadData();
         };
