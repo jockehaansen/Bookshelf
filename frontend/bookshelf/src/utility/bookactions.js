@@ -1,5 +1,7 @@
+const apiUrl = import.meta.env.VITE_API_URL;
+
 export const postNewBookFromBookshelf = async (book) => {
-    const response = await fetch('http://localhost:8080/bookshelf/add', {
+    const response = await fetch(`${apiUrl}/bookshelf/add` , {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -16,7 +18,7 @@ export const postNewBookFromBookshelf = async (book) => {
 
 export const fetchUserBookshelfOnLoad = async () => {
     try {
-        const response = await fetch("http://localhost:8080/bookshelf", {
+        const response = await fetch(`${apiUrl}/bookshelf`, {
             method: "GET",
         });
         const jsonData = await response.json();
@@ -40,7 +42,7 @@ export const fetchGoogleBooksBySearch = async (input) => {
 }
 
 export const updateBookFromBookshelf = async (bookToUpdate) => {
-        const response = await fetch("http://localhost:8080/bookshelf/update", {
+        const response = await fetch(`${apiUrl}/bookshelf/update`, {
             method:"PUT",
             headers: {
                 'Content-Type': 'application/json'
@@ -54,7 +56,7 @@ export const updateBookFromBookshelf = async (bookToUpdate) => {
 };
 
 export const deleteBookFromBookshelf = async (bookToDelete) => {
-    const response = await fetch("http://localhost:8080/bookshelf/delete", {
+    const response = await fetch(`${apiUrl}/bookshelf/delete`, {
         method: "DELETE",
         headers: {
             'Content-Type': 'Application/json'
