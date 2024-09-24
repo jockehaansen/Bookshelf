@@ -8,9 +8,11 @@ const BrowseBooksPage = () => {
     const [data, setData] = useState([]);
 
     useEffect(() => {
+        console.log("Inside useEffect")
         return () => {
             const loadData = async () => {
                 const books = await fetchGoogleBooksBySearch(search);
+                console.log("Fetching data for", search)
                 setData(books.items);
                 console.log(books.items)
             }

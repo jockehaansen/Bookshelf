@@ -5,6 +5,7 @@ const NewBooksPage = () => {
     const navigate = useNavigate();
     const [ input, setInput ] = useState('')
     const handleBookSearch = () => {
+        console.log("clicked search with", input)
         if(input){
             navigate(`/books/${encodeURIComponent(input)}`)
         }
