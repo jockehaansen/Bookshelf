@@ -19,19 +19,16 @@ COPY gradle/wrapper/gradle-wrapper.properties ./gradle/wrapper/
 RUN chmod +x gradlew
 RUN ./gradlew build
 
-# Build the React app
-RUN npm run build
+# Use Nginx to serve the built frontend app
+FROM nginx:alpine AS nginx-build
 
-# Use Nginx to serve the built app
-FROM nginx:alpine
-
-# Copy built files to Nginx directory
-COPY --from=dist /app/build /usr/share/nginx/html
+# Copy built files from the frontend build
+COPY --from=frontend-build /app/frontend/bookshelf/dist /usr/share/nginx/html
 
 # Copy the Nginx configuration file
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# Expose the port
+# Expose the port for Nginx
 EXPOSE 80
 
 # Start Nginx
