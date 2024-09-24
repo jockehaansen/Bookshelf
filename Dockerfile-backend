@@ -26,12 +26,12 @@ RUN ./gradlew build
 #CMD ["nginx", "-g", "daemon off;"]
 
 #Create final image
-#FROM openjdk:17-jdk-alpine
-#WORKDIR /app
+FROM openjdk:17-jdk-alpine
+WORKDIR /app
 #COPY --from=backend-build /app/backend/build/libs/Bookshelf-*.jar app.jar
 #COPY --from=frontend-build /app/frontend/bookshelf/dist ./frontend/dist
-#EXPOSE 8080
-#CMD ["java", "-jar", "app.jar"]
+EXPOSE 8080
+CMD ["java", "-jar", "app.jar"]
 
 
 
