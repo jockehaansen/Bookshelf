@@ -16,8 +16,10 @@ const BookshelfPage = () => {
 
 
     useEffect(() => {
+        console.log("In useEffect")
         const loadData = async () => {
             const books = await fetchUserBookshelfOnLoad();
+            console.log("Fetched books:", books)
             setData(books);
         }
         loadData();
