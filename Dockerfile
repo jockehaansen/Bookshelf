@@ -19,6 +19,24 @@ COPY gradle/wrapper/gradle-wrapper.properties ./gradle/wrapper/
 RUN chmod +x gradlew
 RUN ./gradlew build
 
+# Build the React app
+RUN npm run build
+
+# Use Nginx to serve the built app
+FROM nginx:alpine
+
+# Copy built files to Nginx directory
+COPY --from=build /app/build /usr/share/nginx/html
+
+# Copy the Nginx configuration file
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+# Expose the port
+EXPOSE 80
+
+# Start Nginx
+CMD ["nginx", "-g", "daemon off;"]
+
 #Create final image
 FROM openjdk:17-jdk-alpine
 WORKDIR /app
