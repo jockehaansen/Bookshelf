@@ -45,7 +45,7 @@ class BookshelfServiceTests {
     @Test
     void addNewBookToBookshelf_shouldAddNewBookToBookshelf(){
         Book book1 = new Book();
-        book1.setId("id");
+        book1.setId(1L);
         when(bookRepository.save(book1)).thenReturn(book1);
 
         Book savedBook = bookRepository.save(book1);
@@ -58,13 +58,13 @@ class BookshelfServiceTests {
     @Test
     void updateBookInBookshelf_shouldHaveTheUpdatedValues() throws Exception {
         Book book1 = new Book();
-        book1.setId("id");
+        book1.setId(1L);
         book1.setVolumeInfo(new VolumeInfo(
                 "TestTitle", "TestSubtitle", List.of("TestAuthors"),
                 "2022-02-02", "TestDescription", 222));
 
         BookDTO incomingDTO = new BookDTO();
-        incomingDTO.setId("id");
+        incomingDTO.setId(1L);
         incomingDTO.setVolumeInfo(new VolumeInfo("ChangedTitle", "ChangedSubtitle",
                 List.of("ChangedAuthor"), "2023-03-03", "ChangedDescription", 111));
 
@@ -80,14 +80,14 @@ class BookshelfServiceTests {
         assertEquals("ChangedDescription", book1.getVolumeInfo().getDescription());
         assertEquals(111, book1.getVolumeInfo().getPageCount());
 
-        verify(bookRepository, times(1)).findById("id");
+        verify(bookRepository, times(1)).findById(1L);
         verify(bookRepository, times(1)).save(book1);
     }
 
     @Test
     void deleteBookFromBookshelf_crudMethodsShouldBeCalled() throws Exception {
         Book book1 = new Book();
-        book1.setId("id1");
+        book1.setId(1L);
 
         when(bookRepository.findById(book1.getId())).thenReturn(Optional.of(book1));
         Book foundBook = bookRepository.findById(book1.getId()).orElse(null);
