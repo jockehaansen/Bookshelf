@@ -26,6 +26,9 @@ public class BookshelfApplication {
                 Book book = new Book(volumeInfo, true);
                 Book book1 = new Book(volumeInfo, false);
                 Book book2 = new Book(volumeInfo, false);
+                book.setId("1");
+                book1.setId("2");
+                book2.setId("3");
                 bookRepository.save(book);
                 bookRepository.save(book1);
                 bookRepository.save(book2);

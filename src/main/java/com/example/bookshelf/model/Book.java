@@ -13,7 +13,6 @@ import lombok.NoArgsConstructor;
 public class Book {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
     @Embedded
