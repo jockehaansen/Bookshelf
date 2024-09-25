@@ -39,9 +39,7 @@ const BookTable = ({ books, handleUpdateBook, handleDeleteBook }) => {
 };
 
 BookTable.propTypes = {
-    books: {
-        book: PropTypes.object
-    },
+    books: PropTypes.array,
     handleUpdateBook: PropTypes.func,
     handleDeleteBook: PropTypes.func
 }
