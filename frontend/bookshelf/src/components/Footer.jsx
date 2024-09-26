@@ -6,7 +6,8 @@ const Footer = () => {
     return (
         <footer>
             <div className="w-full">
-                <div className="bg-slate-700 bg-opacity-40 inset-x-0 bottom-0 h-12 w-screen text-black flex justify-center items-center md:flex-row flex-col">
+                <div className="bg-slate-700 bg-opacity-40 inset-x-0 bottom-0 h-12 w-screen
+                 text-black flex justify-center items-center md:flex-row flex-col">
                     <div>
                         Made with <FaReact className="inline text-cyan-500 md:h-6 md:w-6" />{' '}
                         and

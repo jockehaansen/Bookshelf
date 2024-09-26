@@ -10,10 +10,17 @@ import {
 import AddBookFromBookshelfModal from "../components/AddBookFromBookshelfModal.jsx";
 
 const BookshelfPage = () => {
+    const navigate = useNavigate()
     const [data, setData] = useState([]);
-    const navigate = useNavigate();
     const [isModalOpen, setIsModalOpen] = useState(false);
 
+    const handleAddNewBookClick = () => {
+        setIsModalOpen(true)
+    }
+
+    const handleFindNewBooksClick = () => {
+        navigate("/books")
+    }
 
     useEffect(() => {
         console.log("In useEffect")
@@ -28,9 +35,7 @@ const BookshelfPage = () => {
     const handleHomeClick = () =>{
         navigate("/");
     }
-    const handleAddNewBookClick = () => {
-        setIsModalOpen(true)
-    }
+
     const handleBookSave = async (newBook) => {
         const data = await postNewBookFromBookshelf(newBook);
         setData(data);
@@ -47,16 +52,20 @@ const BookshelfPage = () => {
         setData(data);
     }
 
-    const handleFindNewBooksClick = () => {
-        navigate("/books")
-    }
+
     return (
-        <div className={"flex flex-row w-screen h-screen"}>
+        <div className={"flex flex-row"}>
             <div className={"w-1/3 p-4"}>
                 <ul className={"menu bg-base-200 rounded-box w-56"}>
-                    <li><button onClick={handleHomeClick}>Home</button></li>
-                    <li><button onClick={handleAddNewBookClick}>Add New Book</button></li>
-                    <li><button onClick={handleFindNewBooksClick}>Find New Books</button></li>
+                    <li>
+                        <button onClick={handleHomeClick}>Home</button>
+                    </li>
+                    <li>
+                        <button onClick={handleAddNewBookClick}>Add New Book</button>
+                    </li>
+                    <li>
+                        <button onClick={handleFindNewBooksClick}>Find New Books</button>
+                    </li>
                 </ul>
                 <div className={"mt-4"}>
                     <p>pages read</p>
