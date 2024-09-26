@@ -1,6 +1,6 @@
-### Bookshelf Application
+## Bookshelf Application
 
-## An application that provides the user with both being able to have an e-library of books locally, and find new books from the Google Books API that the user might be interested in acquiring and reading in the future. 
+An application that provides the user with both being able to have an e-library of books locally, and find new books from the Google Books API that the user might be interested in acquiring and reading in the future. 
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
