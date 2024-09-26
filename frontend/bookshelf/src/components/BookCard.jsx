@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { FiBookOpen } from "react-icons/fi";
 
 const BookCard = ({ book, handleUpdateBook, handleDeleteBook }) => {
 
@@ -33,7 +34,7 @@ const BookCard = ({ book, handleUpdateBook, handleDeleteBook }) => {
                 </div>
                 <div className="card-actions justify-end space-x-2">
                     <button className="btn btn-primary" onClick={handleMarkAsRead}>
-                        {book.markedAsRead ? "Unmark as read" : "Mark as read"}
+                        {book.markedAsRead ? <span className={"flex"}>Read <FiBookOpen className={"ml-2"}/></span> : "Mark as read"}
                     </button>
                     <button className="btn btn-circle btn-error text-sm" onClick={() => handleDeleteBook(book)}>
                         X
@@ -61,15 +62,4 @@ BookCard.propTypes = {
     handleDeleteBook: PropTypes.func.isRequired
 }
 
-BookCard.defaultProps = {
-    book: {
-        volumeInfo: {
-            title: "No Title",
-            authors: ["No Authors"],
-            description: "No Description",
-            pageCount: 0,
-        },
-        markedAsRead: false
-    }
-}
 export default BookCard;
