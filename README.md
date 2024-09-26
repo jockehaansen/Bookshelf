@@ -5,6 +5,7 @@ An application that provides the user with both being able to have an e-library 
 ![Build Status](https://github.com/jockehaansen/Bookshelf/actions/workflows/build-and-deploy.yml/badge.svg)
 
 ![Docker Image Version](https://img.shields.io/docker/v/jockehansen/bookshelf-backend/latest.svg) - Java / Spring docker image
+
 ![Docker Image Version](https://img.shields.io/docker/v/jockehansen/bookshelf-frontend/latest.svg) - React.js docker image
 
 ### Prerequisites
