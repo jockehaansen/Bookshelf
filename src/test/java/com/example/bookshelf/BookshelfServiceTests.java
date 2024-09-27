@@ -34,8 +34,14 @@ class BookshelfServiceTests {
 
     @Test
     void getAllBooksAsBookDTO_shouldReturnSameLengthList(){
-        Book book1 = mock(Book.class);
-        Book book2 = mock(Book.class);
+        Book book1 = new Book();
+        Book book2 = new Book();
+        book1.setVolumeInfo(new VolumeInfo(
+                "TestTitle", "TestSubtitle", List.of("TestAuthors"),
+                "2022-02-02", "TestDescription", 222));
+        book2.setVolumeInfo(new VolumeInfo(
+                "TestTitle", "TestSubtitle", List.of("TestAuthors"),
+                "2022-02-02", "TestDescription", 222));
         when(bookRepository.findAll()).thenReturn(List.of(book1, book2));
 
         assertEquals(bookRepository.findAll().size(), bookshelfService.getAllBooksAsBookDTO().size());
@@ -48,10 +54,12 @@ class BookshelfServiceTests {
         book1.setId(1L);
         when(bookRepository.save(book1)).thenReturn(book1);
 
-        Book savedBook = bookRepository.save(book1);
+        BookDTO bookToBeSaved = bookshelfService.bookToBookDTO(book1);
+        when(bookRepository.findAll()).thenReturn(List.of(book1));
+        List<BookDTO> bookDTOList = bookshelfService.addNewBookToBookshelf(bookToBeSaved);
 
-        assertNotNull(savedBook);
-        assertEquals(book1.getId(), savedBook.getId());
+        assertNotNull(bookDTOList.get(0));
+        assertEquals(book1.getId(), bookDTOList.get(0).getId());
         verify(bookRepository, times(1)).save(book1);
     }
 
