@@ -1,26 +1,36 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import BookTable from "../components/BookTable.jsx";
 import {fetchGoogleBooksBySearch} from "../utility/bookactions.js";
-import {useParams} from "react-router-dom";
 
 const BrowseBooksPage = () => {
-    const { search } = useParams()
     const [data, setData] = useState([]);
+    const [ input, setInput ] = useState('')
 
-    useEffect(() => {
-        console.log("Inside useEffect")
-            const loadData = async () => {
-                const books = await fetchGoogleBooksBySearch(search);
-                console.log("Fetching data for", search)
-                setData(books.items);
-                console.log(books.items)
-            }
-            loadData();
-    }, [search]);
+    const handleBookSearch = async () => {
+        console.log("Clicked search with", input)
+        const data = await fetchGoogleBooksBySearch(input)
+        setData(data.items || [])
+        console.log("Data returned to browse page", data)
+    }
 
     return (
-        <div>
-            <BookTable books={data} />
+        <div className={"flex flex-row"}>
+            <div className={"w-1/3 p-4 flex flex-col"}>
+                <label htmlFor={'book-search'}></label>
+                <input
+                    type={"text"}
+                    name={"book-search"}
+                    className={"h-12"}
+                    placeholder={"Search for title, author or genre"}
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                ></input>
+                <button className={"btn btn-primary max-w-24"} onClick={handleBookSearch}>Search</button>
+            </div>
+            <div className={"divider divider-horizontal divider-primary"}></div>
+            <div className={"w-2/3 p-4"}>
+                <BookTable books={data}/>
+            </div>
         </div>
     );
 };

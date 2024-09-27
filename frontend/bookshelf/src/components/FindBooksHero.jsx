@@ -13,8 +13,9 @@ const FindBooksHero = ({ handleFindNewBooksClick }) => {
                 <div className="max-w-md">
                     <h1 className="mb-5 text-5xl font-bold">Hello there</h1>
                     <p className="mb-5">
-                        Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem
-                        quasi. In deleniti eaque aut repudiandae et a id nisi.
+                        Explore millions of books from around the world with the Google Books API.
+                        Search by title, author, or genre to discover new reads. All book information
+                        is provided directly from Google Books. Find new exciting books today!
                     </p>
                     <button className="btn btn-primary" onClick={handleFindNewBooksClick}>Find new Books</button>
                 </div>
