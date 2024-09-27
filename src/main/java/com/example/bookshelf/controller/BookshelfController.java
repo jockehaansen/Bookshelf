@@ -1,6 +1,7 @@
 package com.example.bookshelf.controller;
 
 import com.example.bookshelf.dto.BookDTO;
+import com.example.bookshelf.dto.BookshelfDTO;
 import com.example.bookshelf.service.BookshelfService;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,8 +17,8 @@ public class BookshelfController {
         this.bookshelfService = bookshelfService;
     }
     @GetMapping("/bookshelf")
-    public List<BookDTO> getBooksInBookshelf(){
-        return bookshelfService.getAllBooksAsBookDTO();
+    public BookshelfDTO getBookshelf(){
+        return bookshelfService.generateBookshelfDTO(bookshelfService.getAllBooksAsBookDTO());
     }
 
     @PostMapping("/bookshelf/add")
@@ -26,12 +27,12 @@ public class BookshelfController {
     }
 
     @PutMapping("/bookshelf/update")
-    public List<BookDTO> updateBookInBookshelf(@RequestBody BookDTO bookDTO) throws Exception {
-        return bookshelfService.updateBookInBookshelf(bookDTO);
+    public BookshelfDTO updateBookInBookshelf(@RequestBody BookDTO bookDTO) throws Exception {
+        return bookshelfService.generateBookshelfDTO(bookshelfService.updateBookInBookshelf(bookDTO));
     }
 
     @DeleteMapping("bookshelf/delete")
-    public List<BookDTO> deleteBookFromBookshelf(@RequestBody BookDTO bookDTO) throws Exception {
-        return bookshelfService.deleteBookFromBookshelf(bookDTO);
+    public BookshelfDTO deleteBookFromBookshelf(@RequestBody BookDTO bookDTO) throws Exception {
+        return bookshelfService.generateBookshelfDTO(bookshelfService.deleteBookFromBookshelf(bookDTO));
     }
 }

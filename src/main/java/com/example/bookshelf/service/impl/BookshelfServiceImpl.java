@@ -2,6 +2,7 @@ package com.example.bookshelf.service.impl;
 
 import com.example.bookshelf.configs.MapperConfig;
 import com.example.bookshelf.dto.BookDTO;
+import com.example.bookshelf.dto.BookshelfDTO;
 import com.example.bookshelf.model.Book;
 import com.example.bookshelf.repositories.BookRepository;
 import com.example.bookshelf.service.BookshelfService;
@@ -9,6 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,7 +30,7 @@ public class BookshelfServiceImpl implements BookshelfService {
 
     @Override
     public List<BookDTO> getAllBooksAsBookDTO() {
-        return bookRepository.findAll().stream().map(this::bookToBookDTO).toList();
+        return sortBookDTOsByTitle(bookRepository.findAll().stream().map(this::bookToBookDTO).toList());
     }
 
     @Override
@@ -61,6 +64,41 @@ public class BookshelfServiceImpl implements BookshelfService {
     @Override
     public BookDTO bookToBookDTO(Book book) {
         return modelMapper.map(book, BookDTO.class);
+    }
+
+    @Override
+    public int getTotalPagesRead(List<BookDTO> books) {
+        return books.stream()
+                .filter(BookDTO::isMarkedAsRead)
+                .map(bookDTO -> bookDTO.getVolumeInfo().getPageCount())
+                .reduce(0, Integer::sum);
+    }
+
+    @Override
+    public int getTotalBooksRead(List<BookDTO> books) {
+        return books.stream().filter(BookDTO::isMarkedAsRead).toList().size();
+    }
+
+    @Override
+    public int getTotalBooksInBookshelf(List<BookDTO> books) {
+        return books.size();
+    }
+
+    @Override
+    public BookshelfDTO generateBookshelfDTO(List<BookDTO> bookDTOS) {
+        BookshelfDTO bookshelfDTO = new BookshelfDTO();
+        bookshelfDTO.setTotalBooksInBookshelf(getTotalBooksInBookshelf(bookDTOS));
+        bookshelfDTO.setTotalPagesRead(getTotalPagesRead(bookDTOS));
+        bookshelfDTO.setTotalBooksRead(getTotalBooksRead(bookDTOS));
+        bookshelfDTO.setBooks(getAllBooksAsBookDTO());
+        return bookshelfDTO;
+    }
+
+    @Override
+    public List<BookDTO> sortBookDTOsByTitle(List<BookDTO> bookDTOS) {
+        List<BookDTO> sortingList = new ArrayList<>(bookDTOS);
+        sortingList.sort(Comparator.comparing(bookDTO -> bookDTO.getVolumeInfo().getTitle()));
+        return sortingList;
     }
 
 }
