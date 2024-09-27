@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import BookTable from "../components/BookTable.jsx";
-import {useNavigate} from "react-router-dom";
 import {
     deleteBookFromBookshelf,
     fetchUserBookshelfOnLoad,
@@ -11,26 +10,16 @@ import AddBookFromBookshelfModal from "../components/AddBookFromBookshelfModal.j
 
 const BookshelfPage = () => {
     const [data, setData] = useState([]);
-    const navigate = useNavigate();
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-
     useEffect(() => {
-        console.log("In useEffect")
         const loadData = async () => {
             const books = await fetchUserBookshelfOnLoad();
-            console.log("Fetched books:", books)
             setData(books);
         }
         loadData();
     }, []);
 
-    const handleHomeClick = () =>{
-        navigate("/");
-    }
-    const handleAddNewBookClick = () => {
-        setIsModalOpen(true)
-    }
     const handleBookSave = async (newBook) => {
         const data = await postNewBookFromBookshelf(newBook);
         setData(data);
@@ -47,25 +36,28 @@ const BookshelfPage = () => {
         setData(data);
     }
 
-    const handleFindNewBooksClick = () => {
-        navigate("/books")
-    }
     return (
-        <div className={"flex flex-row w-screen h-screen"}>
+        <div className={"flex flex-row"}>
             <div className={"w-1/3 p-4"}>
-                <ul className={"menu bg-base-200 rounded-box w-56"}>
-                    <li><button onClick={handleHomeClick}>Home</button></li>
-                    <li><button onClick={handleAddNewBookClick}>Add New Book</button></li>
-                    <li><button onClick={handleFindNewBooksClick}>Find New Books</button></li>
-                </ul>
-                <div className={"mt-4"}>
-                    <p>pages read</p>
-                    <p>books read</p>
+                <div className={"bg-green-100 min-w-screen min-h-24 text-center py-2 border"}>
+                    <h2 className={"text-2xl"}>Pages Read</h2>
+                    <h2 className={"text-2xl"}>Num of pages</h2>
+                </div>
+                <div className={"bg-cyan-100 min-w-screen min-h-24 text-center py-2 border"}>
+                    <h2 className={"text-2xl"}>Books Read</h2>
+                    <h2 className={"text-2xl"}>Num of books in bookshelf marked as read</h2>
+                </div>
+                <div className={"bg-orange-100 min-w-screen min-h-24 text-center py-2 border"}>
+                    <h2 className={"text-2xl"}>Books in Bookshelf</h2>
+                    <h2 className={"text-2xl"}>Num of books in bookshelf</h2>
                 </div>
             </div>
             <div className="divider divider-horizontal divider-primary"></div>
             <div className={"w-2/3 p-4"}>
-                <BookTable books={data} handleUpdateBook={handleUpdateBook} handleDeleteBook={handleDeleteBook}/>
+                <BookTable
+                    books={data}
+                    handleUpdateBook={handleUpdateBook}
+                    handleDeleteBook={handleDeleteBook}/>
                 <div>
                     <AddBookFromBookshelfModal
                         onSave={handleBookSave}

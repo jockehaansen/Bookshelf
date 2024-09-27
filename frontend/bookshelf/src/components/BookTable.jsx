@@ -11,9 +11,10 @@ const BookTable = ({ books, handleUpdateBook, handleDeleteBook }) => {
     const indexOfFirstBook = indexOfLastBook - booksPerPage;
     const currentBooks = books.slice(indexOfFirstBook, indexOfLastBook);
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
     return (
         <>
-            <div className="join grid grid-cols-2 max-w-md">
+            <div className="join grid grid-cols-2 max-w-md mx-auto mb-4">
                 <button className="join-item btn btn-outline"
                         onClick={() => paginate(currentPage - 1)}
                         disabled={currentPage === 1}>
@@ -39,9 +40,7 @@ const BookTable = ({ books, handleUpdateBook, handleDeleteBook }) => {
 };
 
 BookTable.propTypes = {
-    books: {
-        book: PropTypes.object
-    },
+    books: PropTypes.array,
     handleUpdateBook: PropTypes.func,
     handleDeleteBook: PropTypes.func
 }

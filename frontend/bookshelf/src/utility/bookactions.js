@@ -25,13 +25,12 @@ export const fetchUserBookshelfOnLoad = async () => {
         return(jsonData);
     } catch (error) {
         console.error("Error fetching data", error);
-        console.log(apiUrl)
-        console.log(import.meta.env)
         return [];
     }
 }
 
 export const fetchGoogleBooksBySearch = async (input) => {
+    console.log("fetchGoogleBooksBySearch was called")
     try {
         const response = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${input}`, {
             method: 'GET',
@@ -66,7 +65,6 @@ export const deleteBookFromBookshelf = async (bookToDelete) => {
         body: JSON.stringify(bookToDelete)
     });
     if (!response.ok){
-        console.log(bookToDelete.id)
         throw new Error('Failed to delete book')
     }
     return await response.json();
