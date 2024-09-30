@@ -60,7 +60,7 @@ export const deleteBookFromBookshelf = async (bookToDelete) => {
     const response = await fetch(`${apiUrl}/bookshelf/delete`, {
         method: "DELETE",
         headers: {
-            'Content-Type': 'Application/json'
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify(bookToDelete)
     });
@@ -68,4 +68,18 @@ export const deleteBookFromBookshelf = async (bookToDelete) => {
         throw new Error('Failed to delete book')
     }
     return await response.json();
+}
+
+export const saveBookFromGoogleBooks = async (book) => {
+    const response = await fetch(`${apiUrl}/books/save`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(book)
+    })
+    if (!response.ok) {
+        throw new Error("Failed to save book")
+    }
+    return await response.json()
 }

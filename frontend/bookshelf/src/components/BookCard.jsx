@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { FiBookOpen } from "react-icons/fi";
 
-const BookCard = ({ book, handleUpdateBook, handleDeleteBook }) => {
+const BookCard = ({ book, handleUpdateBook, handleDeleteBook, handleAddBookToBookshelf, isBookshelfPage }) => {
 
     const handleMarkAsRead = () => {
             const updatedBookData = {
@@ -10,7 +10,6 @@ const BookCard = ({ book, handleUpdateBook, handleDeleteBook }) => {
             };
             handleUpdateBook(updatedBookData);
         };
-
 
     return (
         <div className="card card-side bg-base-400 shadow-xl w-96 h-64 overflow-hidden mr-2 my-2">
@@ -33,12 +32,21 @@ const BookCard = ({ book, handleUpdateBook, handleDeleteBook }) => {
                     <p className="text-sm">{book.volumeInfo.pageCount} pages</p>
                 </div>
                 <div className="card-actions justify-end space-x-2">
-                    <button className="btn btn-primary" onClick={handleMarkAsRead}>
-                        {book.markedAsRead ? <span className={"flex"}>Read <FiBookOpen className={"ml-2"}/></span> : "Mark as read"}
-                    </button>
-                    <button className="btn btn-circle btn-error text-sm" onClick={() => handleDeleteBook(book)}>
-                        X
-                    </button>
+                    {isBookshelfPage ? (
+                        <>
+                            <button className="btn btn-primary" onClick={handleMarkAsRead}>
+                                {book.markedAsRead ?
+                                    <span className="flex">Read <FiBookOpen className="ml-2"/></span> : "Mark as read"}
+                            </button>
+                            <button className="btn btn-circle btn-error text-sm" onClick={() => handleDeleteBook(book)}>
+                                X
+                            </button>
+                        </>
+                    ) : (
+                        <button className="btn btn-primary" onClick={() => handleAddBookToBookshelf(book)}>
+                            Save to Bookshelf
+                        </button>
+                    )}
                 </div>
             </div>
         </div>

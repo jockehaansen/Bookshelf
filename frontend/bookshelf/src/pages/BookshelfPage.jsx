@@ -66,7 +66,9 @@ const BookshelfPage = () => {
                 <BookTable
                     books={data.books}
                     handleUpdateBook={handleUpdateBook}
-                    handleDeleteBook={handleDeleteBook}/>
+                    handleDeleteBook={handleDeleteBook}
+                    isBookshelfPage={true}
+                />
                 <div>
                     <AddBookFromBookshelfModal
                         onSave={handleBookSave}

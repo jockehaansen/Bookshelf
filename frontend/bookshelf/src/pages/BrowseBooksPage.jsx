@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import BookTable from "../components/BookTable.jsx";
-import {fetchGoogleBooksBySearch} from "../utility/bookactions.js";
+import {fetchGoogleBooksBySearch, saveBookFromGoogleBooks} from "../utility/bookactions.js";
 
 const BrowseBooksPage = () => {
     const [data, setData] = useState([]);
@@ -11,6 +11,12 @@ const BrowseBooksPage = () => {
         const data = await fetchGoogleBooksBySearch(input)
         setData(data.items || [])
         console.log("Data returned to browse page", data)
+    }
+
+    const handleAddBookToBookshelf = async (book) => {
+        console.log("Clicked save to bookshelf with", book)
+        const data = await saveBookFromGoogleBooks(book)
+        console.log("Data returned", data)
     }
 
     return (
@@ -29,7 +35,11 @@ const BrowseBooksPage = () => {
             </div>
             <div className={"divider divider-horizontal divider-primary"}></div>
             <div className={"w-2/3 p-4"}>
-                <BookTable books={data}/>
+                <BookTable
+                    books={data}
+                    handleAddBookToBookshelf={handleAddBookToBookshelf}
+                    isBookshelfPage={false}
+                />
             </div>
         </div>
     );

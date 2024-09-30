@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import BookCard from "./BookCard.jsx";
 import PropTypes from "prop-types";
 
-const BookTable = ({ books, handleUpdateBook, handleDeleteBook }) => {
+const BookTable = ({ books, handleUpdateBook, handleDeleteBook, handleAddBookToBookshelf, isBookshelfPage }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const booksPerPage = 12;
 
@@ -32,7 +32,10 @@ const BookTable = ({ books, handleUpdateBook, handleDeleteBook }) => {
                         key={book.id}
                         book={book}
                         handleUpdateBook={handleUpdateBook}
-                        handleDeleteBook={handleDeleteBook}/>
+                        handleDeleteBook={handleDeleteBook}
+                        handleAddBookToBookshelf={handleAddBookToBookshelf}
+                        isBookshelfPage={isBookshelfPage}
+                    />
                 ))}
             </div>
         </>

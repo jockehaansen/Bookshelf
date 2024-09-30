@@ -26,8 +26,8 @@ public class VolumeInfo {
 
     private String publishedDate;
 
-    @Size(min = 1, max = 1000)
-    @Column(length = 1000)
+    @Size(min = 1, max = 2000)
+    @Column(length = 2000)
     private String description;
 
     private int pageCount;
