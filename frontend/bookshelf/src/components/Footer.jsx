@@ -27,7 +27,7 @@ const Footer = () => {
                         <p>Powered by Google Books API</p>
                         <div className="flex justify-center space-x-4 mt-2">
                             <a href="https://github.com/jockehaansen" target="_blank">GitHub</a>
-                            <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+                            <a href="https://www.linkedin.com/in/joakim-lykke-hansen/" target="_blank">LinkedIn</a>
                         </div>
                     </div>
                 </div>
