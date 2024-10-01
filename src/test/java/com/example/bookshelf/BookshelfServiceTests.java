@@ -57,10 +57,10 @@ class BookshelfServiceTests {
 
         BookDTO bookToBeSaved = bookshelfService.bookToBookDTO(book1);
         when(bookRepository.findAll()).thenReturn(List.of(book1));
-        List<BookDTO> bookDTOList = bookshelfService.addNewBookToBookshelf(bookToBeSaved);
+        BookshelfDTO bookshelfDTO = bookshelfService.addNewBookToBookshelf(bookToBeSaved);
 
-        assertNotNull(bookDTOList.get(0));
-        assertEquals(book1.getId(), bookDTOList.get(0).getId());
+        assertNotNull(bookshelfDTO.getBooks().get(0));
+        assertEquals(book1.getId(), bookshelfDTO.getBooks().get(0).getId());
         verify(bookRepository, times(1)).save(book1);
     }
 
