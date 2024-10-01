@@ -6,6 +6,7 @@ import com.example.bookshelf.model.Book;
 import com.example.bookshelf.model.VolumeInfo;
 import com.example.bookshelf.repositories.BookRepository;
 import com.example.bookshelf.service.BookshelfService;
+import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import java.util.List;
 import java.util.Optional;
 
+import static com.example.bookshelf.testUtilities.TestDataFactory.createBook;
+import static com.example.bookshelf.testUtilities.TestDataFactory.createBookDTO;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -35,14 +38,8 @@ class BookshelfServiceTests {
 
     @Test
     void getAllBooksAsBookDTO_shouldReturnSameLengthList(){
-        Book book1 = new Book();
-        Book book2 = new Book();
-        book1.setVolumeInfo(new VolumeInfo(
-                "TestTitle", "TestSubtitle", List.of("TestAuthors"),
-                "2022-02-02", "TestDescription", 222));
-        book2.setVolumeInfo(new VolumeInfo(
-                "TestTitle", "TestSubtitle", List.of("TestAuthors"),
-                "2022-02-02", "TestDescription", 222));
+        Book book1 = createBook(1L, "TestTitle", true);
+        Book book2 = createBook(2L, "TestTitle2", false);
         when(bookRepository.findAll()).thenReturn(List.of(book1, book2));
 
         assertEquals(bookRepository.findAll().size(), bookshelfService.getAllBooksAsBookDTO().size());
@@ -51,8 +48,7 @@ class BookshelfServiceTests {
 
     @Test
     void addNewBookToBookshelf_shouldAddNewBookToBookshelf(){
-        Book book1 = new Book();
-        book1.setId(1L);
+        Book book1 = createBook(1L, "TestTitle", true);
         when(bookRepository.save(book1)).thenReturn(book1);
 
         BookDTO bookToBeSaved = bookshelfService.bookToBookDTO(book1);
@@ -65,12 +61,8 @@ class BookshelfServiceTests {
     }
 
     @Test
-    void updateBookInBookshelf_shouldHaveTheUpdatedValues() throws Exception {
-        Book book1 = new Book();
-        book1.setId(1L);
-        book1.setVolumeInfo(new VolumeInfo(
-                "TestTitle", "TestSubtitle", List.of("TestAuthors"),
-                "2022-02-02", "TestDescription", 222));
+    void updateBookInBookshelf_shouldHaveTheUpdatedValues() throws EntityNotFoundException {
+        Book book1 = createBook(1L, "TestTitle", true);
 
         BookDTO incomingDTO = new BookDTO();
         incomingDTO.setId(1L);
@@ -94,9 +86,8 @@ class BookshelfServiceTests {
     }
 
     @Test
-    void deleteBookFromBookshelf_crudMethodsShouldBeCalled() throws Exception {
-        Book book1 = new Book();
-        book1.setId(1L);
+    void deleteBookFromBookshelf_crudMethodsShouldBeCalled() throws EntityNotFoundException {
+        Book book1 = createBook(1L, "TestTitle", true);
 
         when(bookRepository.findById(book1.getId())).thenReturn(Optional.of(book1));
         Book foundBook = bookRepository.findById(book1.getId()).orElse(null);
@@ -110,36 +101,25 @@ class BookshelfServiceTests {
 
     @Test
     void getTotalBooksRead_shouldOnlyReturnBooksMarkedAsReadAsInt(){
-        BookDTO book1 = new BookDTO();
-        BookDTO book2 = new BookDTO();
-        book1.setMarkedAsRead(true);
-        book2.setMarkedAsRead(false);
+        BookDTO book1 = createBookDTO(1L, "TestTitle", true);
+        BookDTO book2 = createBookDTO(2L, "TestTitle2", false);
         List<BookDTO> books = List.of(book1, book2);
 
         int result = bookshelfService.getTotalBooksRead(books);
         assertEquals(1, result);
         assertNotEquals(0, result);
-
     }
 
     @Test
     void getTotalPagesRead_shouldReturnTotalPagesReadOfBooksFromListAsInt(){
-        BookDTO book1 = new BookDTO();
-        BookDTO book2 = new BookDTO();
-        book1.setMarkedAsRead(true);
-        book2.setMarkedAsRead(false);
-        int book1PageCount = 100;
-        int book2PageCount = 200;
-        book1.setVolumeInfo(new VolumeInfo("ChangedTitle", "ChangedSubtitle",
-                List.of("ChangedAuthor"), "2023-03-03", "ChangedDescription", book1PageCount));
-        book2.setVolumeInfo(new VolumeInfo("ChangedTitle", "ChangedSubtitle",
-                List.of("ChangedAuthor"), "2023-03-03", "ChangedDescription", book2PageCount));
-        List<BookDTO> books = List.of(book1, book2);
+        BookDTO book1 = createBookDTO(1L, "TestTitle", true);
+        BookDTO book2 = createBookDTO(2L, "TestTitle2", false);
 
+        List<BookDTO> books = List.of(book1, book2);
         int result = bookshelfService.getTotalPagesRead(books);
 
-        assertEquals(result, book1PageCount);
-        assertNotEquals(book2PageCount+book1PageCount, result);
+        assertEquals(result, book1.getVolumeInfo().getPageCount());
+        assertNotEquals(book1.getVolumeInfo().getPageCount()+book2.getVolumeInfo().getPageCount(), result);
     }
 
     @Test
@@ -156,16 +136,8 @@ class BookshelfServiceTests {
 
     @Test
     void generateBookshelfDTO_shouldContainAllValues(){
-        Book book1 = new Book();
-        Book book2 = new Book();
-        book1.setId(1L);
-        book2.setId(2L);
-        book1.setMarkedAsRead(true);
-        book2.setMarkedAsRead(false);
-        book1.setVolumeInfo(new VolumeInfo("ChangedTitle", "ChangedSubtitle",
-                List.of("ChangedAuthor"), "2023-03-03", "ChangedDescription", 100));
-        book2.setVolumeInfo(new VolumeInfo("ChangedTitle", "ChangedSubtitle",
-                List.of("ChangedAuthor"), "2023-03-03", "ChangedDescription", 200));
+        Book book1 = createBook(1L, "TestTitle", true);
+        Book book2 = createBook(2L, "TestTitle2", false);
 
         List<Book> books = List.of(book1, book2);
         List<BookDTO> bookDTOS = List.of(bookshelfService.bookToBookDTO(book1), bookshelfService.bookToBookDTO(book2));
@@ -174,8 +146,7 @@ class BookshelfServiceTests {
 
         assertEquals(bookDTOS, resultDTO.getBooks());
         assertEquals(1, resultDTO.getTotalBooksRead());
-        assertEquals(100, resultDTO.getTotalPagesRead());
+        assertEquals(book1.getVolumeInfo().getPageCount(), resultDTO.getTotalPagesRead());
         assertEquals(2, resultDTO.getTotalBooksInBookshelf());
-
     }
 }
