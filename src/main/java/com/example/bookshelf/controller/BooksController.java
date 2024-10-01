@@ -3,6 +3,7 @@ package com.example.bookshelf.controller;
 import com.example.bookshelf.dto.BookDTO;
 import com.example.bookshelf.dto.SaveBookDTO;
 import com.example.bookshelf.service.BooksService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,7 +20,8 @@ public class BooksController {
     }
 
     @PostMapping("/books/save")
-    public void saveBookFromGoogleBooks(@RequestBody SaveBookDTO saveBookDTO) {
+    public ResponseEntity<String> saveBookFromGoogleBooks(@RequestBody SaveBookDTO saveBookDTO) {
         booksService.saveBookFromGoogleBooks(saveBookDTO);
+        return ResponseEntity.ok("Book saved successfully in Bookshelf");
     }
 }
