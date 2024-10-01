@@ -81,5 +81,4 @@ export const saveBookFromGoogleBooks = async (book) => {
     if (!response.ok) {
         throw new Error("Failed to save book")
     }
-    return await response.json()
 }

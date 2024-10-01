@@ -6,6 +6,7 @@ import com.example.bookshelf.dto.BookshelfDTO;
 import com.example.bookshelf.model.Book;
 import com.example.bookshelf.repositories.BookRepository;
 import com.example.bookshelf.service.BookshelfService;
+import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -36,26 +37,28 @@ public class BookshelfServiceImpl implements BookshelfService {
         Book book = new Book();
         modelMapper.map(bookDTO, book);
         bookRepository.save(book);
-        logger.log(Level.INFO, "Book added to the bookshelf {0}", book);
+        logger.log(Level.INFO, "Book saved successfully: {0}", book.getVolumeInfo().getTitle());
         return generateBookshelfDTO(getAllBooksAsBookDTO());
     }
 
     @Override
-    public List<BookDTO> updateBookInBookshelf(BookDTO bookDTO) throws Exception {
-        Book book = bookRepository.findById(bookDTO.getId()).orElseThrow(() -> new Exception("Book not found"));
+    public List<BookDTO> updateBookInBookshelf(BookDTO bookDTO) throws EntityNotFoundException {
+        Book book = bookRepository.findById(bookDTO.getId()).orElseThrow(
+                () -> new EntityNotFoundException("Book with title: " + bookDTO.getVolumeInfo().getTitle() + " not found"));
         book.setVolumeInfo(bookDTO.getVolumeInfo());
         book.setMarkedAsRead(bookDTO.isMarkedAsRead());
         bookRepository.save(book);
+        logger.log(Level.INFO, "Book updated successfully: {0}", book.getVolumeInfo().getTitle());
         return getAllBooksAsBookDTO();
     }
 
     @Override
-    public List<BookDTO> deleteBookFromBookshelf(BookDTO bookDTO) throws Exception {
-        logger.log(Level.INFO, "Inside deleteBookFromBookshelf with {0}", bookDTO);
-        Book book = bookRepository.findById(bookDTO.getId()).orElseThrow(() -> new Exception("Book not found"));
-        logger.log(Level.INFO, "Book found in the repository {0}", book);
+    public List<BookDTO> deleteBookFromBookshelf(BookDTO bookDTO) throws EntityNotFoundException {
+        Book book = bookRepository.findById(bookDTO.getId()).orElseThrow(
+                () -> new EntityNotFoundException("Book with title: " + bookDTO.getVolumeInfo().getTitle() + " not found"));
+        logger.log(Level.INFO, "Book found in the repository, deleting: {0}", book.getVolumeInfo().getTitle());
         bookRepository.delete(book);
-        logger.log(Level.INFO, "Book deleted from the bookshelf {0}", book);
+        logger.log(Level.INFO, "Book successfully deleted: {0}", book.getVolumeInfo().getTitle());
         return getAllBooksAsBookDTO();
     }
 
@@ -84,12 +87,8 @@ public class BookshelfServiceImpl implements BookshelfService {
 
     @Override
     public BookshelfDTO generateBookshelfDTO(List<BookDTO> bookDTOS) {
-        BookshelfDTO bookshelfDTO = new BookshelfDTO();
-        bookshelfDTO.setTotalBooksInBookshelf(getTotalBooksInBookshelf(bookDTOS));
-        bookshelfDTO.setTotalPagesRead(getTotalPagesRead(bookDTOS));
-        bookshelfDTO.setTotalBooksRead(getTotalBooksRead(bookDTOS));
-        bookshelfDTO.setBooks(getAllBooksAsBookDTO());
-        return bookshelfDTO;
+        return new BookshelfDTO(bookDTOS, getTotalPagesRead(bookDTOS),
+                getTotalBooksRead(bookDTOS), getTotalBooksInBookshelf(bookDTOS));
     }
 
     @Override

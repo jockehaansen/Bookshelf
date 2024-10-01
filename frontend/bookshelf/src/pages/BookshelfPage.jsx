@@ -1,4 +1,6 @@
 import React, {useEffect, useState} from 'react';
+import { toast, ToastContainer} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 import BookTable from "../components/BookTable.jsx";
 import {
     deleteBookFromBookshelf,
@@ -19,26 +21,45 @@ const BookshelfPage = () => {
 
     useEffect(() => {
         const loadData = async () => {
-            const bookshelfDTO = await fetchUserBookshelfOnLoad();
-            setData(bookshelfDTO);
+            try {
+                const bookshelfDTO = await fetchUserBookshelfOnLoad();
+                setData(bookshelfDTO);
+            } catch (error){
+                toast.error("Failed to load books..")
+            }
         }
         loadData();
     }, []);
 
     const handleBookSave = async (newBook) => {
-        const data = await postNewBookFromBookshelf(newBook);
-        setData(data);
-        setIsModalOpen(false)
+        try {
+            const data = await postNewBookFromBookshelf(newBook);
+            setData(data);
+            setIsModalOpen(false)
+            toast.success("Book saved successfully")
+        } catch (error){
+            toast.error("Failed to save book")
+        }
     }
 
     const handleUpdateBook = async (bookToUpdate) => {
-        const data = await updateBookFromBookshelf(bookToUpdate);
-        setData(data);
+        try {
+            const data = await updateBookFromBookshelf(bookToUpdate);
+            setData(data);
+            toast.success("Book updated successfully!")
+        } catch (error){
+            toast.error("Failed to update book")
+        }
     }
 
     const handleDeleteBook = async (bookToDelete) => {
-        const data = await deleteBookFromBookshelf(bookToDelete);
-        setData(data);
+        try {
+            const data = await deleteBookFromBookshelf(bookToDelete);
+            setData(data);
+            toast.success("Book deleted successfully")
+        } catch (error){
+            toast.error("Failed to delete book")
+        }
     }
 
     return (
@@ -76,6 +97,7 @@ const BookshelfPage = () => {
                     />
                 </div>
             </div>
+            <ToastContainer />
         </div>
     );
 };

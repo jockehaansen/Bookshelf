@@ -1,4 +1,6 @@
 import React, {useState} from 'react';
+import { toast, ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 import BookTable from "../components/BookTable.jsx";
 import {fetchGoogleBooksBySearch, saveBookFromGoogleBooks} from "../utility/bookactions.js";
 
@@ -7,16 +9,22 @@ const BrowseBooksPage = () => {
     const [ input, setInput ] = useState('')
 
     const handleBookSearch = async () => {
-        console.log("Clicked search with", input)
-        const data = await fetchGoogleBooksBySearch(input)
-        setData(data.items || [])
-        console.log("Data returned to browse page", data)
+        try{
+            const data = await fetchGoogleBooksBySearch(input)
+            setData(data.items || [])
+        } catch (error){
+            toast.error("Failed to search books with", input)
+        }
+
     }
 
     const handleAddBookToBookshelf = async (book) => {
-        console.log("Clicked save to bookshelf with", book)
-        const data = await saveBookFromGoogleBooks(book)
-        console.log("Data returned", data)
+        try{
+            await saveBookFromGoogleBooks(book)
+            toast.success("Book saved successfully!")
+        } catch (error){
+            toast.error("Failed to save book", book)
+        }
     }
 
     return (
@@ -41,6 +49,7 @@ const BrowseBooksPage = () => {
                     isBookshelfPage={false}
                 />
             </div>
+            <ToastContainer />
         </div>
     );
 };
