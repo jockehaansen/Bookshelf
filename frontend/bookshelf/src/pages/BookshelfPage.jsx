@@ -21,10 +21,6 @@ const BookshelfPage = () => {
         const loadData = async () => {
             const bookshelfDTO = await fetchUserBookshelfOnLoad();
             setData(bookshelfDTO);
-            console.log(data)
-            console.log(data.totalPagesRead)
-            console.log(data.totalBooksRead)
-            console.log(data.totalBooksInBookshelf)
         }
         loadData();
     }, []);
@@ -59,6 +55,9 @@ const BookshelfPage = () => {
                 <div className={"bg-orange-100 min-w-screen min-h-24 text-center py-2 border"}>
                     <h2 className={"text-2xl"}>Books in Bookshelf</h2>
                     <h2 className={"text-2xl"}>{data.totalBooksInBookshelf}</h2>
+                </div>
+                <div className={"text-center pt-4"}>
+                    <button className={"btn min-h-12 py-2 border"} onClick={() => setIsModalOpen(true)}>Add new Book</button>
                 </div>
             </div>
             <div className="divider divider-horizontal divider-primary"></div>

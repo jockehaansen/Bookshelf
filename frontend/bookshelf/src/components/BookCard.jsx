@@ -66,8 +66,10 @@ BookCard.propTypes = {
         }),
         markedAsRead: PropTypes.bool
     }),
-    handleUpdateBook: PropTypes.func.isRequired,
-    handleDeleteBook: PropTypes.func.isRequired
+    handleUpdateBook: PropTypes.func,
+    handleDeleteBook: PropTypes.func,
+    handleAddBookToBookshelf: PropTypes.func,
+    isBookshelfPage: PropTypes.bool,
 }
 
 export default BookCard;

@@ -45,7 +45,9 @@ const BookTable = ({ books, handleUpdateBook, handleDeleteBook, handleAddBookToB
 BookTable.propTypes = {
     books: PropTypes.array,
     handleUpdateBook: PropTypes.func,
-    handleDeleteBook: PropTypes.func
+    handleDeleteBook: PropTypes.func,
+    handleAddBookToBookshelf: PropTypes.func,
+    isBookshelfPage: PropTypes.bool
 }
 
 export default BookTable;

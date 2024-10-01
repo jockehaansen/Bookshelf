@@ -17,10 +17,8 @@ public class BooksServiceImpl implements BooksService {
     private final ModelMapper modelMapper = MapperConfig.modelMapper();
     Logger logger = Logger.getLogger(BooksServiceImpl.class.getName());
 
-
     public BooksServiceImpl(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
-
     }
 
     @Override

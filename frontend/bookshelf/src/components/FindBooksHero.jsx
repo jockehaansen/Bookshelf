@@ -11,7 +11,7 @@ const FindBooksHero = ({ handleFindNewBooksClick }) => {
             <div className="hero-overlay bg-opacity-60"></div>
             <div className="hero-content text-neutral-content text-center">
                 <div className="max-w-md">
-                    <h1 className="mb-5 text-5xl font-bold">Hello there</h1>
+                    <h1 className="mb-5 text-5xl font-bold">Browse Google Books</h1>
                     <p className="mb-5">
                         Explore millions of books from around the world with the Google Books API.
                         Search by title, author, or genre to discover new reads. All book information

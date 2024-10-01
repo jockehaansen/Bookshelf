@@ -32,12 +32,12 @@ public class BookshelfServiceImpl implements BookshelfService {
     }
 
     @Override
-    public List<BookDTO> addNewBookToBookshelf(BookDTO bookDTO) {
+    public BookshelfDTO addNewBookToBookshelf(BookDTO bookDTO) {
         Book book = new Book();
         modelMapper.map(bookDTO, book);
         bookRepository.save(book);
         logger.log(Level.INFO, "Book added to the bookshelf {0}", book);
-        return getAllBooksAsBookDTO();
+        return generateBookshelfDTO(getAllBooksAsBookDTO());
     }
 
     @Override

@@ -22,7 +22,7 @@ public class BookshelfController {
     }
 
     @PostMapping("/bookshelf/add")
-    public List<BookDTO> addNewBookToBookshelf(@RequestBody BookDTO bookDTO){
+    public BookshelfDTO addNewBookToBookshelf(@RequestBody BookDTO bookDTO){
         return bookshelfService.addNewBookToBookshelf(bookDTO);
     }
 
