@@ -30,7 +30,6 @@ export const fetchUserBookshelfOnLoad = async () => {
 }
 
 export const fetchGoogleBooksBySearch = async (input) => {
-    console.log("fetchGoogleBooksBySearch was called")
     try {
         const response = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${input}`, {
             method: 'GET',
