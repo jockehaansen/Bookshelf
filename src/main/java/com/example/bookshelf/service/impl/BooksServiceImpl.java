@@ -25,7 +25,7 @@ public class BooksServiceImpl implements BooksService {
     public void saveBookFromGoogleBooks(SaveBookDTO saveBookDTO) {
         logger.log(Level.INFO,"Checking book {0}", saveBookDTO);
         if (bookRepository.findByVolumeInfo_Title(saveBookDTO.getVolumeInfo().getTitle()) != null){
-            throw new RuntimeException("Book already in bookshelf");
+            throw new IllegalStateException("Book already in bookshelf");
         }
         logger.log(Level.INFO,"Saving book {0}", saveBookDTO);
         bookRepository.save(saveBookDTOToBook(saveBookDTO));

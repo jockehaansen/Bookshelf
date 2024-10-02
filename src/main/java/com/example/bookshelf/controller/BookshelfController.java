@@ -5,8 +5,6 @@ import com.example.bookshelf.dto.BookshelfDTO;
 import com.example.bookshelf.service.BookshelfService;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @CrossOrigin(origins = "*")
 public class BookshelfController {
@@ -27,12 +25,12 @@ public class BookshelfController {
     }
 
     @PutMapping("/bookshelf/update")
-    public BookshelfDTO updateBookInBookshelf(@RequestBody BookDTO bookDTO) throws Exception {
+    public BookshelfDTO updateBookInBookshelf(@RequestBody BookDTO bookDTO) {
         return bookshelfService.generateBookshelfDTO(bookshelfService.updateBookInBookshelf(bookDTO));
     }
 
     @DeleteMapping("bookshelf/delete")
-    public BookshelfDTO deleteBookFromBookshelf(@RequestBody BookDTO bookDTO) throws Exception {
+    public BookshelfDTO deleteBookFromBookshelf(@RequestBody BookDTO bookDTO) {
         return bookshelfService.generateBookshelfDTO(bookshelfService.deleteBookFromBookshelf(bookDTO));
     }
 }

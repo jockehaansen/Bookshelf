@@ -19,7 +19,9 @@ public interface BookshelfService {
     BookDTO bookToBookDTO(Book book);
 
     int getTotalPagesRead(List<BookDTO> books);
+
     int getTotalBooksRead(List<BookDTO> books);
+
     int getTotalBooksInBookshelf(List<BookDTO> books);
 
     BookshelfDTO generateBookshelfDTO(List<BookDTO> bookDTOS);

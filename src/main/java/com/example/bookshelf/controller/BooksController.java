@@ -1,6 +1,5 @@
 package com.example.bookshelf.controller;
 
-import com.example.bookshelf.dto.BookDTO;
 import com.example.bookshelf.dto.SaveBookDTO;
 import com.example.bookshelf.service.BooksService;
 import org.springframework.http.ResponseEntity;

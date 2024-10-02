@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
+import React, {useState} from 'react'
 import { toast, ToastContainer } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css';
-import BookTable from "../components/BookTable.jsx";
-import {fetchGoogleBooksBySearch, saveBookFromGoogleBooks} from "../utility/bookactions.js";
+import 'react-toastify/dist/ReactToastify.css'
+import BookTable from "../components/BookTable.jsx"
+import {fetchGoogleBooksBySearch, saveBookFromGoogleBooks} from "../utility/bookactions.js"
 
 const BrowseBooksPage = () => {
-    const [data, setData] = useState([]);
+    const [data, setData] = useState([])
     const [ input, setInput ] = useState('')
 
     const handleBookSearch = async () => {
@@ -13,7 +13,7 @@ const BrowseBooksPage = () => {
             const data = await fetchGoogleBooksBySearch(input)
             setData(data.items || [])
         } catch (error){
-            toast.error("Failed to search books with", input)
+            toast.error("Failed to search books")
         }
 
     }
@@ -30,10 +30,10 @@ const BrowseBooksPage = () => {
     return (
         <div className={"flex flex-row"}>
             <div className={"w-1/3 p-4 flex flex-col"}>
-                <label htmlFor={'book-search'}></label>
                 <input
                     type={"text"}
                     name={"book-search"}
+                    id={"book-search"}
                     className={"h-12"}
                     placeholder={"Search for title, author or genre"}
                     value={input}

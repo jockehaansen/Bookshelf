@@ -10,54 +10,9 @@ COPY gradle/wrapper/gradle-wrapper.properties ./gradle/wrapper/
 RUN chmod +x gradlew
 RUN ./gradlew build
 
-# Use Nginx to serve the built frontend app
-#FROM nginx:alpine AS nginx-build
 
-# Copy built files from the frontend build
-#COPY --from=frontend-build /app/frontend/bookshelf/dist /usr/share/nginx/html
-
-# Copy the Nginx configuration file
-#COPY nginx.conf /etc/nginx/conf.d/default.conf
-
-# Expose the port for Nginx
-#EXPOSE 80
-
-# Start Nginx
-#CMD ["nginx", "-g", "daemon off;"]
-
-#Create final image
-FROM openjdk:17-jdk-alpine
-WORKDIR /app
-COPY --from=backend-build /app/backend/build/libs/Bookshelf-*.jar app.jar
-#COPY --from=frontend-build /app/frontend/bookshelf/dist ./frontend/dist
+#FROM openjdk:17-jdk-alpine
+#WORKDIR /app
+#COPY --from=backend-build /app/backend/build/libs/Bookshelf-*.jar app.jar
 EXPOSE 8080
 CMD ["java", "-jar", "app.jar"]
-
-
-
-
-
-# Use an official OpenJDK image as a parent image
-#FROM openjdk:17-jdk-alpine
-
-# Set the working directory inside the container
-#WORKDIR /app
-
-# Copy the Gradle wrapper and permission for execution
-#COPY gradlew ./
-#RUN chmod +x gradlew
-
-# Copy the gradle folder
-#COPY gradle ./gradle
-
-# Copy the project files
-#COPY . .
-
-# Build the application using Gradle
-#RUN ./gradlew build -x test
-
-# Expose the port your app runs on
-#EXPOSE 8080
-
-# Run the Spring Boot app
-#ENTRYPOINT ["java", "-jar", "build/libs/Bookshelf-1.jar"]
