@@ -13,6 +13,6 @@ RUN ./gradlew build
 
 #FROM openjdk:17-jdk-alpine
 WORKDIR /app
-#COPY --from=backend-build /app/backend/build/libs/Bookshelf-*.jar app.jar
+COPY --from=backend-build /app/backend/build/libs/Bookshelf-*.jar app.jar
 EXPOSE 8080
 CMD ["java", "-jar", "app.jar"]
