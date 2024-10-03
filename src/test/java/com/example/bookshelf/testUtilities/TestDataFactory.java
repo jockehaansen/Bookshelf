@@ -1,6 +1,7 @@
 package com.example.bookshelf.testUtilities;
 
 import com.example.bookshelf.dto.BookDTO;
+import com.example.bookshelf.dto.SaveBookDTO;
 import com.example.bookshelf.model.Book;
 import com.example.bookshelf.model.VolumeInfo;
 
@@ -25,5 +26,13 @@ public class TestDataFactory {
                 title, "TestSubtitle", List.of("TestAuthors"),
                 "2022-02-02", "TestDescription", 222));
         return bookDTO;
+    }
+
+    public static SaveBookDTO createSaveBookDTO(String title){
+        SaveBookDTO saveBookDTO = new SaveBookDTO();
+        saveBookDTO.setVolumeInfo(new VolumeInfo(
+                title, "TestSubtitle", List.of("TestAuthors"),
+                "2022-02-02", "TestDescription", 222));
+        return saveBookDTO;
     }
 }
