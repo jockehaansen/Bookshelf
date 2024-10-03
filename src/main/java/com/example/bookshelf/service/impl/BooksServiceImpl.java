@@ -32,7 +32,8 @@ public class BooksServiceImpl implements BooksService {
         logger.log(Level.INFO,"Book saved");
     }
 
-    private Book saveBookDTOToBook(SaveBookDTO saveBookDTO) {
+    @Override
+    public Book saveBookDTOToBook(SaveBookDTO saveBookDTO) {
         return modelMapper.map(saveBookDTO, Book.class);
     }
 }
