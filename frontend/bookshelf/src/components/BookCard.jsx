@@ -12,8 +12,8 @@ const BookCard = ({ book, handleUpdateBook, handleDeleteBook, handleAddBookToBoo
         };
 
     return (
-        <div className="card card-side bg-base-400 shadow-xl w-96 h-64 overflow-hidden mr-2 my-2">
-            <figure className="w-2/5 h-full">
+        <div className="card card-side bg-base-400 shadow-xl w-96 overflow-hidden mr-2 my-2">
+            <figure className="w-2/5 h-48 my-auto">
                 <img
                     className="object-cover w-full h-full"
                     src={book.volumeInfo.imageLinks ? book.volumeInfo.imageLinks.thumbnail : "https://images.pexels.com/photos/2422178/pexels-photo-2422178.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"}
